@@ -1,8 +1,13 @@
 import React from "react";
 import "./app.css";
+import profile from "./assets/profile.jpg";
 
 function App() {
-  return <h1>Hello Rocketseat</h1>;
+  return (
+    <div>
+      <img width="100" src={profile}></img>;
+    </div>
+  );
 }
 
 export default App;
