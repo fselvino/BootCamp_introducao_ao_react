@@ -2,16 +2,39 @@ import React, { Component } from "react";
 
 class TechList extends Component {
   state = {
+    newTech: "",
     techs: ["Node.Js", "React.Js", "React Native"]
   };
+  handleInputChange = e => {
+    this.setState({ newTech: e.target.value });
+  };
+  handleSubmit = e => {
+    //preventDefault evita que a pagina recarege totalmente
+    e.preventDefault();
+    //console.log(this.state.newTech);
+
+    //quando formos manipular arry devemos recriar  todo array acrescentando o novo
+    //valor
+    this.setState({
+      techs: [...this.state.techs, this.state.newTech],
+      newTech: ""
+    });
+  };
   render() {
-    console.log(this.state);
     return (
-      <ul>
-        <li>Node.Js</li>
-        <li>ReactJs</li>
-        <li>React Native</li>
-      </ul>
+      <form onSubmit={this.handleSubmit}>
+        <ul>
+          {this.state.techs.map(tech => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+        <input
+          type="text"
+          onChange={this.handleInputChange}
+          value={this.state.newTech}
+        />
+        <button type="submit">Enviar</button>
+      </form>
     );
   }
 }
