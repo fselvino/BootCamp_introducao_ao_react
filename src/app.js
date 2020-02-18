@@ -1,11 +1,12 @@
 import React from "react";
 import "./app.css";
 import profile from "./assets/profile.jpg";
+import TechList from "./componets/TechList";
 
 function App() {
   return (
     <div>
-      <img width="100" src={profile}></img>;
+      <TechList />
     </div>
   );
 }
