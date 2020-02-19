@@ -10,8 +10,7 @@ class TechList extends Component {
   };
   handleSubmit = e => {
     //preventDefault evita que a pagina recarege totalmente
-    e.preventDefault();
-    //console.log(this.state.newTech);
+    e.preventDefault(); //console.log(this.state.newTech);
 
     //quando formos manipular arry devemos recriar  todo array acrescentando o novo
     //valor
@@ -20,12 +19,22 @@ class TechList extends Component {
       newTech: ""
     });
   };
+  handleDelete = tech => {
+    this.setState({ techs: this.state.techs.filter(t => t !== tech) });
+  };
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <ul>
+          {" "}
           {this.state.techs.map(tech => (
-            <li key={tech}>{tech}</li>
+            <li key={tech}>
+              {tech}
+              <button onClick={() => this.handleDelete(tech)} type="button">
+                Remover
+              </button>
+            </li>
           ))}
         </ul>
         <input
