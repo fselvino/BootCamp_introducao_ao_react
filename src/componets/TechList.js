@@ -4,7 +4,7 @@ import TechItem from "./TechItem";
 class TechList extends Component {
   state = {
     newTech: "",
-    techs: ["Node.Js", "React.Js", "React Native"]
+    techs: []
   };
   handleInputChange = e => {
     this.setState({ newTech: e.target.value });
@@ -24,6 +24,28 @@ class TechList extends Component {
     this.setState({ techs: this.state.techs.filter(t => t !== tech) });
   };
 
+  //Executado assim que o component aparecer em tela
+  componentDidMount() {
+    const techs = localStorage.getItem("techs");
+    if (techs) {
+      this.setState({ techs: JSON.parse(techs) });
+    }
+  }
+
+  //Executa sempre que houver alteraçoes nas props ou estado
+  //esse metodo recebe como primeiro parametro prevProps e segundo parametro
+  //prevState
+  //como não iremos utilizar o primeiro parametro passamos um underline _
+  componentDidUpdate(_, prevState) {
+    //verifica se o estado anterior esta diferente de agora
+    if (prevState.techs !== this.state.techs) {
+      localStorage.setItem("techs", JSON.stringify(this.state.techs));
+    }
+  }
+
+  //Execultado quando o componente deixa de existir
+  componentWillUnmount() {}
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
@@ -35,7 +57,6 @@ class TechList extends Component {
               onDelete={() => this.handleDelete(tech)}
             />
           ))}
-          <TechItem />
         </ul>
         <input
           type="text"
